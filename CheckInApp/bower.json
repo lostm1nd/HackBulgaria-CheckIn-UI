@@ -1,0 +1,22 @@
+{
+  "name": "CheckInApp",
+  "version": "0.0.0",
+  "homepage": "https://github.com/lostm1nd/HackBulgaria-CheckIn-UI",
+  "authors": [
+    "Deyan Yanakiev <kliomba@abv.bg>"
+  ],
+  "description": "Application for tracking student course attendance",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "chartjs": "~0.2.0",
+    "jquery": "~2.1.1"
+  }
+}

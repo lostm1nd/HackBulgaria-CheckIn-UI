@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HackBulgaria CheckIn Student System User Interface</title>
+	<style>
+		body, html {
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background-color: #ccc;
+			width: 100%;
+			padding: 12px;
+			border-bottom: 12px solid lightblue;
+			text-align: center;
+		}
+
+		header h1 {
+			color: orange;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Hack</h1>
+	</header>
+
+	<canvas id="javascript-chart" width="600" height="300"></canvas>
+
+	<div class="canvas-container">
+		<canvas id="javascript-chart" width="600" height="300"></canvas>
+	</div>
+
+	<script id="chart-template" type="text/x-handlebars-template">
+		<div class="canvas-container">
+			<canvas class="line-chart" width="600" height="300"></canvas>
+		</div>
+	</script>
+	
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/chartjs/Chart.min.js"></script>
+	<script src="app.js"></script>
+</body>
+</html>
