@@ -3,35 +3,39 @@
 <head>
 	<meta charset="UTF-8">
 	<title>HackBulgaria CheckIn Student System User Interface</title>
-	<style>
-		body, html {
-			margin: 0;
-			padding: 0;
-		}
-
-		header {
-			background-color: #ccc;
-			width: 100%;
-			padding: 12px;
-			border-bottom: 12px solid lightblue;
-			text-align: center;
-		}
-
-		header h1 {
-			color: orange;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
 	<header>
-		<h1>Hack</h1>
+		<h1>
+			Hack Bulgaria's<br>
+			Pulse
+		</h1>
 	</header>
 
-	<canvas id="javascript-chart" width="600" height="300"></canvas>
-
 	<div class="canvas-container">
+		<span class="left-arrow"></span>
 		<canvas id="javascript-chart" width="600" height="300"></canvas>
+		<span class="right-arrow"></span>
 	</div>
+
+	<footer>
+		<h1>HackBulgaria &copy;</h1>
+		<ul id="socials">
+              <li>
+                <a href="https://www.facebook.com/HackBulgaria" rel="nofollow" title="Facebook of Hack Bulgaria" class="facebook">Facebook</a>
+              </li>
+              <li>
+                <a href="https://twitter.com/hackbulgaria" rel="nofollow" title="Twitter" class="twitter">&gt;Twitter</a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/channel/UClxooLdBT49Kp9_UC0l_7gQ" rel="nofollow" title="YouTube" class="youtube">&gt;YouTube</a>
+              </li>
+              <li>
+                <a href="https://github.com/hackbulgaria" rel="nofollow" title="GitHub" class="github">&gt;GitHub</a>
+              </li>
+            </ul>
+	</footer>
 
 	<script id="chart-template" type="text/x-handlebars-template">
 		<div class="canvas-container">
