@@ -3,15 +3,20 @@
 $(document).ready(function() {
   'use strict';
 
-  var attendaceByDate = {};
+  var canvasCtx = document.getElementById('javascript-chart').getContext('2d'),
+      $courseTitle = $('#course-title'),
+      courseAttendaceByDate = {},
+      courses = [],
+      courseToDraw = 0;
 
   $.ajax({
     type: 'GET',
     url: 'https://hackbulgaria.com/api/checkins/',
     dataType: 'json',
     success: function(checkins) {
-      getCourseAttendaceByDates(checkins);
-      drawCoursePulse();
+      courseAttendaceByDate = getCourseAttendaceByDates(checkins);
+      courses = getAllCourses(courseAttendaceByDate).sort();
+      drawCoursePulse(courses[courseToDraw], canvasCtx);
     },
     error: function() {
       alert('There might be a problem with the server. Try later.');
@@ -19,23 +24,25 @@ $(document).ready(function() {
   });
 
   function getCourseAttendaceByDates(checkins) {
+    var result = {};
+
     checkins.forEach(function(checkin) {
 
       if (checkin.student_courses) {
         checkin.student_courses.forEach(function(course) {
           var courseName = course.name + ' ' + course.group;
 
-          if (attendaceByDate[courseName]) {
+          if (result[courseName]) {
 
-            if (attendaceByDate[courseName][checkin.date]) {
-              attendaceByDate[courseName][checkin.date] += 1;
+            if (result[courseName][checkin.date]) {
+              result[courseName][checkin.date] += 1;
             } else {
-              attendaceByDate[courseName][checkin.date] = 1;
+              result[courseName][checkin.date] = 1;
             }
 
           } else {
-            attendaceByDate[courseName] = {};
-            attendaceByDate[courseName][checkin.date] = 1;
+            result[courseName] = {};
+            result[courseName][checkin.date] = 1;
           }
 
         });
@@ -43,20 +50,25 @@ $(document).ready(function() {
 
     });
 
-    console.log(attendaceByDate);
+    console.log(result);
+    return result;
   }
 
-  function drawCoursePulse() {
-    var canvasCtx = document.getElementById('javascript-chart').getContext('2d');
+  function getAllCourses(data) {
+    return Object.keys(data);
+  }
 
-    var studentCount = Object.keys(attendaceByDate['Frontend JavaScript 1']).map(function(date) {
-      return attendaceByDate['Frontend JavaScript 1'][date];
+  function drawCoursePulse(course, ctx) {
+    $courseTitle.text(course);
+
+    var studentCount = Object.keys(courseAttendaceByDate[course]).map(function(date) {
+      return courseAttendaceByDate[course][date];
     });
 
-    var lineChart = new Chart(canvasCtx).Line({
-      labels: Object.keys(attendaceByDate['Frontend JavaScript 1']),
+    var lineChart = new Chart(ctx).Line({
+      labels: Object.keys(courseAttendaceByDate[course]),
       datasets: [{
-        label: 'Frontend JavaScript 1',
+        label: course,
         fillColor: 'rgba(0,0,0,0)',
         strokeColor: 'blue',
         pointColor: 'orange',
@@ -66,5 +78,17 @@ $(document).ready(function() {
       bezierCurve: false
     });
   }
+
+  $('span.left-arrow').on('click', function() {
+    if (courseToDraw > 0) {
+      drawCoursePulse(courses[courseToDraw--], canvasCtx);
+    }
+  });
+
+  $('span.right-arrow').on('click', function() {
+    if (courseToDraw < courses.length - 1) {
+      drawCoursePulse(courses[courseToDraw++], canvasCtx);
+    }
+  });
 
 });
