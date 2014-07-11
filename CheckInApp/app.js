@@ -3,7 +3,7 @@
 $(document).ready(function() {
   'use strict';
 
-  var canvasCtx = document.getElementById('javascript-chart').getContext('2d'),
+  var canvasCtx = document.getElementById('chart').getContext('2d'),
       $courseTitle = $('#course-title'),
       courseAttendaceByDate = {},
       courses = [],
@@ -15,7 +15,7 @@ $(document).ready(function() {
     dataType: 'json',
     success: function(checkins) {
       courseAttendaceByDate = getCourseAttendaceByDates(checkins);
-      courses = getAllCourses(courseAttendaceByDate).sort();
+      courses = getObjectKeys(courseAttendaceByDate).sort();
       drawCoursePulse(courses[courseToDraw], canvasCtx);
     },
     error: function() {
@@ -50,28 +50,38 @@ $(document).ready(function() {
 
     });
 
-    console.log(result);
     return result;
   }
 
-  function getAllCourses(data) {
+  function getObjectKeys(data) {
     return Object.keys(data);
   }
 
-  function drawCoursePulse(course, ctx) {
+  function drawCoursePulse(course) {
+    var canvas = UtilitiesModule.getNewCanvas(),
+        canvasWidth = parseInt(canvas.style.width, 10),
+        canvasHeight = parseInt(canvas.style.height, 10),
+        ctx = canvas.getContext('2d'),
+        courseDates = Object.keys(courseAttendaceByDate[course]),
+        studentCount = courseDates.map(function(date) {
+          return courseAttendaceByDate[course][date];
+        });
+
+    ctx.canvas.width = canvasWidth;
+    ctx.canvas.height = canvasHeight;
+    $('#chart').replaceWith(canvas);
     $courseTitle.text(course);
 
-    var studentCount = Object.keys(courseAttendaceByDate[course]).map(function(date) {
-      return courseAttendaceByDate[course][date];
-    });
+    Chart.defaults.global.scaleIntegersOnly = true;
+    Chart.defaults.global.scaleBeginAtZero = true;
 
     var lineChart = new Chart(ctx).Line({
-      labels: Object.keys(courseAttendaceByDate[course]),
+      labels: courseDates,
       datasets: [{
         label: course,
         fillColor: 'rgba(0,0,0,0)',
-        strokeColor: 'blue',
-        pointColor: 'orange',
+        strokeColor: '#02283A',
+        pointColor: '#CD332D',
         data: studentCount
       }]
     }, {
@@ -81,13 +91,15 @@ $(document).ready(function() {
 
   $('span.left-arrow').on('click', function() {
     if (courseToDraw > 0) {
-      drawCoursePulse(courses[courseToDraw--], canvasCtx);
+      courseToDraw -= 1;
+      drawCoursePulse(courses[courseToDraw], canvasCtx);
     }
   });
 
   $('span.right-arrow').on('click', function() {
     if (courseToDraw < courses.length - 1) {
-      drawCoursePulse(courses[courseToDraw++], canvasCtx);
+      courseToDraw += 1;
+      drawCoursePulse(courses[courseToDraw], canvasCtx);
     }
   });
 

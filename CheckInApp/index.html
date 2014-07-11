@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>HackBulgaria CheckIn Student System User Interface</title>
+	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
@@ -13,39 +14,36 @@
 		</h1>
 	</header>
 
-	<div class="canvas-container">
-		<span class="left-arrow"></span>
-		<h2 id="course-title">Course Title</h2>
-		<canvas id="javascript-chart" width="600" height="300"></canvas>
-		<span class="right-arrow"></span>
-	</div>
+	<section id="main">
+		<span class="left-arrow">Previous course</span>
+		<article class="canvas-container">
+			<h2 id="course-title">Course Title</h2>
+			<canvas id="chart" width="600" height="300"></canvas>
+		</article>
+		<span class="right-arrow">Next Course</span>
+	</section>
 
 	<footer>
-		<h1>HackBulgaria &copy;</h1>
+		<h1>Hack Bulgaria &copy;</h1>
 		<ul id="socials">
-              <li>
-                <a href="https://www.facebook.com/HackBulgaria" rel="nofollow" title="Facebook of Hack Bulgaria" class="facebook">Facebook</a>
-              </li>
-              <li>
-                <a href="https://twitter.com/hackbulgaria" rel="nofollow" title="Twitter" class="twitter">&gt;Twitter</a>
-              </li>
-              <li>
-                <a href="https://www.youtube.com/channel/UClxooLdBT49Kp9_UC0l_7gQ" rel="nofollow" title="YouTube" class="youtube">&gt;YouTube</a>
-              </li>
-              <li>
-                <a href="https://github.com/hackbulgaria" rel="nofollow" title="GitHub" class="github">&gt;GitHub</a>
-              </li>
-            </ul>
+			<li>
+				<a href="https://www.facebook.com/HackBulgaria" rel="nofollow" title="Facebook of Hack Bulgaria" class="facebook">Facebook</a>
+			</li>
+			<li>
+				<a href="https://twitter.com/hackbulgaria" rel="nofollow" title="Twitter" class="twitter">&gt;Twitter</a>
+			</li>
+			<li>
+				<a href="https://www.youtube.com/channel/UClxooLdBT49Kp9_UC0l_7gQ" rel="nofollow" title="YouTube" class="youtube">&gt;YouTube</a>
+			</li>
+			<li>
+				<a href="https://github.com/hackbulgaria" rel="nofollow" title="GitHub" class="github">&gt;GitHub</a>
+			</li>
+		</ul>
 	</footer>
-
-	<script id="chart-template" type="text/x-handlebars-template">
-		<div class="chart-container">
-			<canvas class="line-chart" width="600" height="300"></canvas>
-		</div>
-	</script>
 	
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/chartjs/Chart.min.js"></script>
+	<script src="libs/Chart.min.js"></script>
+	<script src="script/utilities.js"></script>
 	<script src="app.js"></script>
 </body>
 </html>
